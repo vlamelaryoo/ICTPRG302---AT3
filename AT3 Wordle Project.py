@@ -20,3 +20,13 @@ def rules():
 
 #Show rules before starting game
 rules()
+
+#import random function
+import random
+#open target_words file, read it and use splitlines to create list without newlines
+target_words = open('target_words.txt', 'r')
+target_words = target_words.read().splitlines()
+#use random function to choose a random word from target_words list, then capitalise it
+chosen_word = random.choice(target_words).upper()
+#test chosen_word working as intended
+print(str(chosen_word))
