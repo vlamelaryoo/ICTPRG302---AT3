@@ -16,6 +16,11 @@ DEBUG = True
 
 # Application Functions
 # TODO: Score Guess Function
+def score_guess(guess_word, target_word):
+    score = []
+    for letter in target_word:
+        score.append(0)
+    return(score)
 
 # TODO: Read File Into Word List Function
 
