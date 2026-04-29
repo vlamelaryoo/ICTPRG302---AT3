@@ -12,6 +12,7 @@
 # TODO: Define Constants
 
 # TODO: Define Variables
+DEBUG = True
 
 # Application Functions
 # TODO: Score Guess Function
@@ -29,7 +30,15 @@ def show_instructions():
 # TODO: Any Optional Additional Functions 
 
 # TODO: Play Game Function
+def play_game():
+    print('Playing the game')
 
 #TODO: Testing Function
+def test_game():
+    print('Testing the game')
 
 #TODO: Main Program
+if DEBUG == True:
+    test_game()
+else:
+    play_game()
