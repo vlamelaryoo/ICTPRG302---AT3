@@ -36,6 +36,16 @@ def play_game():
 #TODO: Testing Function
 def test_game():
     print('Testing the game')
+    # Test Case 1
+    ## Arrange
+    guess_word = 'hello'
+    target_word = 'train'
+    
+    ## Act
+    score = score_guess(guess_word, target_word)
+
+    ## Assert
+    print('Score:', score, 'Expected:', [0, 0, 0, 0, 0])
 
 #TODO: Main Program
 if DEBUG == True:
