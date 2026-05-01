@@ -7,6 +7,7 @@
 # Lecturer: Maryam Shahabi
 
 # TODO: Add Import statements (if needed)
+import random
 
 # Variables and Constants
 # TODO: Define Constants
@@ -71,11 +72,11 @@ filename (file): The file to be converted into a list.
 
 Returns
 -------
-word_list = A list of lines in the file without newline characters.
+word_list: A list of lines in the file without newline characters.
 
 Examples
 --------
->>> all_word_list = read_words_from_file('all_word.txt')
+>>> all_words_list = read_words_from_file('all_word.txt')
 >>> print(all_word_list[:5])
 >>> ['aahed', 'aalii', 'aargh', 'aarti', 'abaca']
 
@@ -90,9 +91,33 @@ def show_greeting():
 
 # TODO: Display Instructions Function
 def show_instructions():
-    print("Instructions")
+    print('Instructions')
 
-# TODO: Any Optional Additional Functions 
+# TODO: Any Optional Additional Functions
+def random_word(word_list):
+    chosen_word = random.choice(word_list)
+    return(chosen_word)
+
+"""Chooses a random item from a list
+
+Arguments
+---------
+word_list: A list from which the random item will be chosen (in this case a list of words).
+
+Returns
+-------
+chosen_word: The randomly chosen word.
+
+Examples
+--------
+>>> chosen_word = random_word(target_words_list)
+>>> print(chosen_word)
+>>> shear
+
+>>> chosen_word = random_word(target_words_list)
+>>> print(chosen_word)
+>>> salsa
+""" 
 
 # TODO: Play Game Function
 def play_game():
@@ -110,7 +135,7 @@ def test_game():
     score = score_guess(guess_word, target_word)
     #
     ## Assert
-    print('Score:', score, 'Expected:', [0, 0, 0, 0, 0])
+    #print('Score:', score, 'Expected:', [0, 0, 0, 0, 0])
 
     #Test Case 2
     ## Arrange
@@ -121,7 +146,7 @@ def test_game():
     score = score_guess(guess_word, target_word)
     #
     ## Assert
-    print('Score:', score, 'Expected:', [2, 2, 2, 2, 2])
+    #print('Score:', score, 'Expected:', [2, 2, 2, 2, 2])
 
     #Test Case 3
     ## Arrange
@@ -132,22 +157,19 @@ def test_game():
     score = score_guess(guess_word, target_word)
     #
     ## Assert
-    print('Score:', score, 'Expected:', [0, 1, 0, 2, 0])
+    #print('Score:', score, 'Expected:', [0, 1, 0, 2, 0])
 
     #Test Case 4
     ## Arrange
-    all_word_filename = 'all_words.txt'
+    all_words_filename = 'all_words.txt'
     #
     ## Act
-    all_word_list = read_words_from_file(all_word_filename)
+    all_words_list = read_words_from_file(all_words_filename)
     #
     ## Assert
-    print('Got:', all_word_list[:5], 'Expected:', ['aahed', 'aalii', 'aargh', 'aarti', 'abaca'])
+    #print('Got:', all_words_list[:5], 'Expected:', ['aahed', 'aalii', 'aargh', 'aarti', 'abaca'])
     
     #Test Case 5
-    #
-    #TODO: Set up your arrange-act-assert test case
-    #Create the statement to show the last 5 words and check that they are correct
     ## Arrange
     target_words_filename = 'target_words.txt'
     #
@@ -155,7 +177,12 @@ def test_game():
     target_words_list = read_words_from_file(target_words_filename)
     #
     ## Assert
-    print('Got:', target_words_list[-5:], 'Expected:', ['young', 'youth', 'zebra', 'zesty', 'zonal'])
+    #print('Got:', target_words_list[-5:], 'Expected:', ['young', 'youth', 'zebra', 'zesty', 'zonal'])
+
+    #Test Case 6
+    for count in range(3):
+        chosen_word = random_word(target_words_list)
+        print(chosen_word)
 
 #TODO: Main Program
 if DEBUG == True:
