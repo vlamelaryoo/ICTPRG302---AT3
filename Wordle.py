@@ -117,7 +117,44 @@ Examples
 >>> chosen_word = random_word(target_words_list)
 >>> print(chosen_word)
 >>> salsa
-""" 
+"""
+
+def display_score(score, guess_word):
+    score_output = []
+    guess_output = []
+    for symbol in score:
+        if symbol == 0:
+            score_output.append('-')
+        elif symbol == 1:
+            score_output.append('?')
+        elif symbol == 2:
+            score_output.append('O')
+    for letter in guess_word:
+        guess_output.append(letter.upper())
+    print(' '.join(score_output))
+    print(' '.join(guess_output))
+
+"""Displays the user's guess and its assigned score in a more readable manner
+
+Arguments
+---------
+score: the score that was assigned to the user's guess
+guess_word: the word that the user guessed
+
+Returns
+-------
+print function of score_output above guess_output
+
+Examples
+--------
+>>> display_score([0, 1, 0, 2, 0], 'world')
+>>> - ? - O -
+>>> W O R L D
+
+>>> display_score([0, 1, 0, 2, 0], 'helps')
+>>> O O O - -
+>>> H E L P S
+"""
 
 # TODO: Play Game Function
 def play_game():
@@ -125,7 +162,7 @@ def play_game():
 
 #TODO: Testing Function
 def test_game():
-    print('Testing the game')
+    print('Testing the game\n')
     # Test Case 1
     ## Arrange
     guess_word = 'hello'
@@ -183,6 +220,15 @@ def test_game():
     for count in range(3):
         chosen_word = random_word(target_words_list)
         print(chosen_word)
+
+    #Test Case 7
+    ## Arrange
+    guess_word = 'world'
+    target_word = 'hello'
+    #
+    ## Act
+    score = score_guess(guess_word, target_word)
+    display_score(score, guess_word)
 
 #TODO: Main Program
 if DEBUG == True:
