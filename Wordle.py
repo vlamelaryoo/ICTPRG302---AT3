@@ -97,13 +97,12 @@ def show_instructions():
     print('Your guesses must be a valid 5 letter word.')
     print('Invalid guesses will not consume a guess attempt.')
     print('After a guess, your word and each letter in it will scored:')
-    print(' - If a letter is in the word and in the correct posotion, a * will be displayed.')
-    print(' - If a letter is in the word but is in the incorrect position, a + will be displayed.')
+    print(' - If a letter is in the word and in the correct posotion, a O will be displayed.')
+    print(' - If a letter is in the word but is in the incorrect position, a ? will be displayed.')
     print(' - If a letter is not in the word, a - will be displayed.')
     print('If you guess the chosen word, you win!')
     print('If you run out of guesses, you lose.')
 
-# Additional Functions
 # Select Random Word From List Function
 def random_word(word_list):
     chosen_word = random.choice(word_list)
@@ -143,6 +142,7 @@ def display_score(score, guess_word):
             score_output.append('O')
     for letter in guess_word:
         guess_output.append(letter.upper())
+    print('')
     print(' '.join(score_output))
     print(' '.join(guess_output))
 
@@ -170,7 +170,7 @@ Examples
 
 # Post-Win Replay Function
 def replay():
-    replay_question = input('Would you like to play again? (yes/no): ').lower()
+    replay_question = input('\nWould you like to play again? (yes/no): ').lower()
     while True:
         if replay_question == 'yes':
             print('\nOkay! New word selected!')
@@ -182,21 +182,21 @@ def replay():
             print('\nSorry, I did not understand that.')
             replay()
 
-# TODO: Play Game Function
+# Play Game Function
 def play_game():
 
     # Create lists of all words and target words
     all_words_list = read_words_from_file('all_words.txt')
     target_words_list = read_words_from_file('target_words.txt')
-    
+
     # Randomly choose a target word
     target_word = random_word(target_words_list)
 
-    # Set number of guesses taken to 0
-    attempt_number = 0
+    # Set number of attempts taken to 0
+    attempts_remaining = 6
 
     # Ask user to guess target word, then validate it, score it and respond
-    while True:
+    while attempts_remaining > 0:
         guess_word = str(input('\nGuess the word (type "help" to view the rules or "restart" to restart): ')).lower()
         if guess_word == 'help':
             show_instructions()
@@ -204,16 +204,22 @@ def play_game():
             print('\nOkay! New word selected!')
             play_game()
         elif guess_word in all_words_list:
-            if guess_word == target_word:
+            score = score_guess(guess_word, target_word)
+            display_score(score, guess_word)
+            if score == [2, 2, 2, 2, 2]:
                 print('\nYou got it!')
                 replay()
                 break
             else:
-                score = score_guess(guess_word, target_word)
-                display_score(score, guess_word)
+                attempts_remaining = attempts_remaining - 1
+                print('\nYou have', str(attempts_remaining), 'guesses left.')
         else:
             print('\nThat word is not valid, try again.')
             continue
+
+    # End game if no attempts remaining
+    print('\nMaximum number of guesses reached. The word was:', target_word)
+    replay()
 
 # Testing Function
 def test_game():
