@@ -6,17 +6,19 @@
 # Course: ICTPRG302
 # Lecturer: Maryam Shahabi
 
-# TODO: Add Import statements (if needed)
+# Import Statements
 import random
 
 # Variables and Constants
-# TODO: Define Constants
+# Constants
+all_words_list = read_words_from_file('all_words.txt')
+target_words_list = read_words_from_file('target_words.txt')
 
-# TODO: Define Variables
-DEBUG = True
+# Variables
+DEBUG = False
 
 # Application Functions
-# TODO: Score Guess Function
+# Score Guess Function
 def score_guess(guess_word, target_word):
     score = []
     for letter in target_word:
@@ -33,19 +35,19 @@ def score_guess(guess_word, target_word):
                 continue
     return(score)
 
-"""Scores the user's guess against the target word.
+"""Scores the user's guess against the target word
 
 Arguments
 ---------
 guess_word (str): The word the user has guessed.
-target_word (str): The word the guess is being checked against.
+target_word (str): The word the guess is being checked against
 
 Returns
 -------
-score: List representing the score assigned to each letter in guess_word.
+score: List representing the score assigned to each letter in guess_word
 0 if letter is not present in target_word
-1 if letter is present in target_word in a different position.
-2 if letter is present in target_word in the same position.
+1 if letter is present in target_word in a different position
+2 if letter is present in target_word in the same position
 
 Examples
 --------
@@ -58,7 +60,7 @@ Examples
 >>> [2, 2, 0, 2, 0]
 """
 
-# TODO: Read File Into Word List Function
+# Read File Into Word List Function
 def read_words_from_file(filename):
     word_list = []
     word_list = open(filename).read().splitlines()
@@ -68,11 +70,11 @@ def read_words_from_file(filename):
 
 Arguments
 ---------
-filename (file): The file to be converted into a list.
+filename (file): The file to be converted into a list
 
 Returns
 -------
-word_list: A list of lines in the file without newline characters.
+word_list: A list of lines in the file without newline characters
 
 Examples
 --------
@@ -85,28 +87,39 @@ Examples
 >>> ['young', 'youth', 'zebra', 'zesty', 'zonal']
 """
 
-# TODO: Display Greeting Function
+# Greeting Function
 def show_greeting():
-    print("Welcome")
+    print("Welcome to Wordle!")
 
-# TODO: Display Instructions Function
+# Rules Function
 def show_instructions():
-    print('Instructions')
+    print('\nThe game rules are:')
+    print('Guess the randomly chosen 5 letter word.')
+    print('You will have 6 attempts.')
+    print('Your guesses must be a valid 5 letter word.')
+    print('Invalid guesses will not consume a guess attempt.')
+    print('After a guess, your word and each letter in it will scored:')
+    print(' - If a letter is in the word and in the correct posotion, a * will be displayed.')
+    print(' - If a letter is in the word but is in the incorrect position, a + will be displayed.')
+    print(' - If a letter is not in the word, a - will be displayed.')
+    print('If you guess the chosen word, you win!')
+    print('If you run out of guesses, you lose.')
 
-# TODO: Any Optional Additional Functions
+# Additional Functions
+# Select Random Word From List Function
 def random_word(word_list):
     chosen_word = random.choice(word_list)
     return(chosen_word)
 
-"""Chooses a random item from a list
+"""Chooses a random item from a list.
 
 Arguments
 ---------
-word_list: A list from which the random item will be chosen (in this case a list of words).
+word_list: A list from which the random item will be chosen (in this case a list of words)
 
 Returns
 -------
-chosen_word: The randomly chosen word.
+chosen_word: The randomly chosen word
 
 Examples
 --------
@@ -119,6 +132,7 @@ Examples
 >>> salsa
 """
 
+# Readable Score Display Function
 def display_score(score, guess_word):
     score_output = []
     guess_output = []
@@ -134,7 +148,7 @@ def display_score(score, guess_word):
     print(' '.join(score_output))
     print(' '.join(guess_output))
 
-"""Displays the user's guess and its assigned score in a more readable manner
+"""Displays the user's guess and its assigned score in a more readable manner.
 
 Arguments
 ---------
@@ -151,18 +165,57 @@ Examples
 >>> - ? - O -
 >>> W O R L D
 
->>> display_score([0, 1, 0, 2, 0], 'helps')
+>>> display_score([2, 2, 2, 0, 0], 'helps')
 >>> O O O - -
 >>> H E L P S
 """
 
+# Post-Win Replay Function
+def replay():
+    replay_question = input('Would you like to play again? (yes/no): ').lower()
+    while True:
+        if replay_question == 'yes':
+            print('\nOkay! New word selected!')
+            play_game()
+        elif replay_question == 'no':
+            print('\nOkay! Goodbye!')
+            break
+        else:
+            print('\nSorry, I did not understand that.')
+            replay()
+
 # TODO: Play Game Function
 def play_game():
-    print('Playing the game')
 
-#TODO: Testing Function
+    # Randomly choose a target word
+    target_word = random_word(target_words_list)
+
+    # Set number of guesses taken to 0
+    attempt_number = 0
+
+    # Ask user to guess target word, then validate it, score it and respond
+    while True:
+        guess_word = str(input('\nGuess the word (type "help" to view the rules or "restart" to restart): ')).lower()
+        if guess_word == 'help':
+            show_instructions()
+        elif guess_word == 'restart':
+            print('\nOkay! New word selected!')
+            play_game()
+        elif guess_word in all_words_list:
+            if guess_word == target_word:
+                print('\nYou got it!')
+                replay()
+                break
+            else:
+                score = score_guess(guess_word, target_word)
+                display_score(score, guess_word)
+        else:
+            print('\nThat word is not valid, try again.')
+            continue
+
+# Testing Function
 def test_game():
-    print('Testing the game\n')
+    print('\nTesting the game')
     # Test Case 1
     ## Arrange
     guess_word = 'hello'
@@ -230,8 +283,13 @@ def test_game():
     score = score_guess(guess_word, target_word)
     display_score(score, guess_word)
 
-#TODO: Main Program
+# Main Program
 if DEBUG == True:
     test_game()
 else:
+    # Display greetings and instructions
+    show_greeting()
+    show_instructions()
+    
+    # Run game function
     play_game()
