@@ -11,8 +11,6 @@ import random
 
 # Variables and Constants
 # Constants
-all_words_list = read_words_from_file('all_words.txt')
-target_words_list = read_words_from_file('target_words.txt')
 
 # Variables
 DEBUG = False
@@ -187,6 +185,10 @@ def replay():
 # TODO: Play Game Function
 def play_game():
 
+    # Create lists of all words and target words
+    all_words_list = read_words_from_file('all_words.txt')
+    target_words_list = read_words_from_file('target_words.txt')
+    
     # Randomly choose a target word
     target_word = random_word(target_words_list)
 
