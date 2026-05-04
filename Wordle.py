@@ -16,6 +16,79 @@ import random
 DEBUG = False
 
 # Application Functions
+
+# Greeting Function
+def show_greeting():
+    print("Welcome to Wordle!")
+
+# Rules Function
+def show_instructions():
+    print('\nThe game rules are:')
+    print('Guess the randomly chosen 5 letter word.')
+    print('You will have 6 attempts.')
+    print('Your guesses must be a valid 5 letter word.')
+    print('Invalid guesses will not consume a guess attempt.')
+    print('After a guess, your word and each letter in it will scored:')
+    print(' - If a letter is in the word and in the correct posotion, a O will be displayed.')
+    print(' - If a letter is in the word but is in the incorrect position, a ? will be displayed.')
+    print(' - If a letter is not in the word, a - will be displayed.')
+    print('If you guess the chosen word, you win!')
+    print('If you run out of guesses, you lose.')
+
+
+# Read File Into Word List Function
+def read_words_from_file(filename):
+    word_list = []
+    word_list = open(filename).read().splitlines()
+    return(word_list)
+
+"""Reads a file and creates a list of lines in it without newline characters.
+
+Arguments
+---------
+filename (file): The file to be converted into a list
+
+Returns
+-------
+word_list: A list of lines in the file without newline characters
+
+Examples
+--------
+>>> all_words_list = read_words_from_file('all_word.txt')
+>>> print(all_word_list[:5])
+>>> ['aahed', 'aalii', 'aargh', 'aarti', 'abaca']
+
+>>> target_words_list = read_words_from_file('target_words.txt')
+>>> print(target_words_list[-5:])
+>>> ['young', 'youth', 'zebra', 'zesty', 'zonal']
+"""
+
+# Select Random Word From List Function
+def random_word(word_list):
+    chosen_word = random.choice(word_list)
+    return(chosen_word)
+
+"""Chooses a random item from a list.
+
+Arguments
+---------
+word_list: A list from which the random item will be chosen (in this case a list of words)
+
+Returns
+-------
+chosen_word: The randomly chosen word
+
+Examples
+--------
+>>> chosen_word = random_word(target_words_list)
+>>> print(chosen_word)
+>>> shear
+
+>>> chosen_word = random_word(target_words_list)
+>>> print(chosen_word)
+>>> salsa
+"""
+
 # Score Guess Function
 def score_guess(guess_word, target_word):
     score = []
@@ -56,77 +129,6 @@ Examples
 >>> score = score_guess('blank', 'blind')
 >>> print(score)
 >>> [2, 2, 0, 2, 0]
-"""
-
-# Read File Into Word List Function
-def read_words_from_file(filename):
-    word_list = []
-    word_list = open(filename).read().splitlines()
-    return(word_list)
-
-"""Reads a file and creates a list of lines in it without newline characters.
-
-Arguments
----------
-filename (file): The file to be converted into a list
-
-Returns
--------
-word_list: A list of lines in the file without newline characters
-
-Examples
---------
->>> all_words_list = read_words_from_file('all_word.txt')
->>> print(all_word_list[:5])
->>> ['aahed', 'aalii', 'aargh', 'aarti', 'abaca']
-
->>> target_words_list = read_words_from_file('target_words.txt')
->>> print(target_words_list[-5:])
->>> ['young', 'youth', 'zebra', 'zesty', 'zonal']
-"""
-
-# Greeting Function
-def show_greeting():
-    print("Welcome to Wordle!")
-
-# Rules Function
-def show_instructions():
-    print('\nThe game rules are:')
-    print('Guess the randomly chosen 5 letter word.')
-    print('You will have 6 attempts.')
-    print('Your guesses must be a valid 5 letter word.')
-    print('Invalid guesses will not consume a guess attempt.')
-    print('After a guess, your word and each letter in it will scored:')
-    print(' - If a letter is in the word and in the correct posotion, a O will be displayed.')
-    print(' - If a letter is in the word but is in the incorrect position, a ? will be displayed.')
-    print(' - If a letter is not in the word, a - will be displayed.')
-    print('If you guess the chosen word, you win!')
-    print('If you run out of guesses, you lose.')
-
-# Select Random Word From List Function
-def random_word(word_list):
-    chosen_word = random.choice(word_list)
-    return(chosen_word)
-
-"""Chooses a random item from a list.
-
-Arguments
----------
-word_list: A list from which the random item will be chosen (in this case a list of words)
-
-Returns
--------
-chosen_word: The randomly chosen word
-
-Examples
---------
->>> chosen_word = random_word(target_words_list)
->>> print(chosen_word)
->>> shear
-
->>> chosen_word = random_word(target_words_list)
->>> print(chosen_word)
->>> salsa
 """
 
 # Readable Score Display Function
@@ -182,6 +184,12 @@ def replay():
             print('\nSorry, I did not understand that.')
             replay()
 
+"""Allows the user to restart the game after winning or end the program.
+
+The function has no arguments and does not return anything.
+It either runs the play_game() function again, or it stops.
+"""
+
 # Play Game Function
 def play_game():
 
@@ -217,9 +225,22 @@ def play_game():
             print('\nThat word is not valid, try again.')
             continue
 
-    # End game if no attempts remaining
+    # End game if no attempts remaining and offer user to replay
     print('\nMaximum number of guesses reached. The word was:', target_word)
     replay()
+
+"""The main game function.
+
+This function incorporates and uses the following other functions:
+read_words_from_file()
+random_word()
+score_guess()
+display_score()
+replay()
+
+The function does not return anything.
+It results in the user winning or losing the game and being offered to replay.
+"""
 
 # Testing Function
 def test_game():
