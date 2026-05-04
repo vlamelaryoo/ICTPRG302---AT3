@@ -19,7 +19,8 @@ DEBUG = False
 
 # Greeting Function
 def show_greeting():
-    print("Welcome to Wordle!")
+    user_name = input(str('Enter your name: '))
+    print('\nHello', user_name + '. Welcome to Wordle!')
 
 # Rules Function
 def show_instructions():
@@ -209,13 +210,13 @@ def play_game():
         if guess_word == 'help':
             show_instructions()
         elif guess_word == 'restart':
-            print('\nOkay! New word selected!')
+            print('\nOkay! New word selected.')
             play_game()
         elif guess_word in all_words_list:
             score = score_guess(guess_word, target_word)
             display_score(score, guess_word)
             if score == [2, 2, 2, 2, 2]:
-                print('\nYou got it!')
+                print('\nWell done,', str(user_name) + '! You got it!')
                 replay()
                 break
             else:
@@ -313,12 +314,22 @@ def test_game():
     display_score(score, guess_word)
 
 # Main Program
+# Enter debug mode if enabled
 if DEBUG == True:
     test_game()
 else:
-    # Display greetings and instructions
+    # Display greetings and welcome user
     show_greeting()
-    show_instructions()
-    
-    # Run game function
-    play_game()
+
+    #Ask user if they would like to see the rules before starting the game
+    while True:
+        ask_for_instructions = input('\nWould you like to see the rules before playing? (yes/no) ')
+        if ask_for_instructions == 'yes':
+            show_instructions()
+            play_game()
+        elif ask_for_instructions == 'no':
+            print('\nOkay, good luck!')
+            play_game()
+        else:
+            print('\nSorry, I did not understand that')
+            continue
