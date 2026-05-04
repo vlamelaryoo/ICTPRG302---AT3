@@ -1,3 +1,4 @@
+
 # AT3 - Wordle
 #
 # Author: Vincent La Mela-Ryoo
@@ -216,7 +217,7 @@ def play_game():
             score = score_guess(guess_word, target_word)
             display_score(score, guess_word)
             if score == [2, 2, 2, 2, 2]:
-                print('\nWell done,', str(user_name) + '! You got it!')
+                print('\nWell done! You got it!')
                 replay()
                 break
             else:
