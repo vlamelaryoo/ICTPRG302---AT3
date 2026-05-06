@@ -23,6 +23,24 @@ def show_greeting():
     user_name = input(str('Enter your name: '))
     print('\nHello', user_name + '. Welcome to Wordle!')
 
+"""Asks user their name, then welcomes them by their name.
+
+Parameters
+---------
+No parameters required.
+
+Returns
+-------
+Does not return anything.
+Prints welcome message.
+
+Example
+-------
+>>> show_greeting()
+>>> Enter your name: Vincent
+>>> Hello, Vincent. Welcome to Wordle!
+"""
+
 # Rules Function
 def show_instructions():
     print('\nThe game rules are:')
@@ -37,6 +55,17 @@ def show_instructions():
     print('If you guess the chosen word, you win!')
     print('If you run out of guesses, you lose.')
 
+"""Displays the game rules
+
+Parameters
+----------
+No parameters required.
+
+Returns
+-------
+Does not return anything.
+Prints rules.
+"""
 
 # Read File Into Word List Function
 def read_words_from_file(filename):
@@ -53,6 +82,10 @@ filename (file): The file to be converted into a list
 Returns
 -------
 word_list: A list of lines in the file without newline characters
+
+Raises
+------
+FileNotFoundError if file being called is not in correct location.
 
 Examples
 --------
@@ -159,7 +192,8 @@ guess_word: the word that the user guessed
 
 Returns
 -------
-print function of score_output above guess_output
+Does not return anything.
+Prints score_output above guess_output.
 
 Examples
 --------
@@ -188,8 +222,14 @@ def replay():
 
 """Allows the user to restart the game after winning or end the program.
 
-The function has no arguments and does not return anything.
-It either runs the play_game() function again, or it stops.
+Parameters
+----------
+The function takes no parameters
+
+Returns
+-------
+Does not return anything.
+Either runs play_game(), or stops.
 """
 
 # Play Game Function
@@ -233,6 +273,9 @@ def play_game():
 
 """The main game function.
 
+Parameters
+----------
+Does not take any parameters.
 This function incorporates and uses the following other functions:
 read_words_from_file()
 random_word()
@@ -240,8 +283,10 @@ score_guess()
 display_score()
 replay()
 
-The function does not return anything.
-It results in the user winning or losing the game and being offered to replay.
+Returns
+-------
+Does not return anything.
+Results in the user winning or losing the game and being offered to replay.
 """
 
 # Testing Function
