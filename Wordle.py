@@ -9,6 +9,7 @@
 
 # Import Statements
 import random
+import sys
 
 # Variables and Constants
 # Constants
@@ -259,7 +260,7 @@ def play_game():
             if score == [2, 2, 2, 2, 2]:
                 print('\nWell done! You got it!')
                 replay()
-                break
+                sys.exit()
             else:
                 attempts_remaining = attempts_remaining - 1
                 print('\nYou have', str(attempts_remaining), 'guesses left.')
